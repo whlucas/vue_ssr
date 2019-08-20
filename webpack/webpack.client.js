@@ -4,15 +4,13 @@ const vueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     mode: 'development',
-    entry: path.join(root, 'entry/server-entry.js'),
+    entry: path.join(root, 'entry/client-entry.js'),
     output: {
-        libraryTarget: 'commonjs2', // node环境 
         path: path.join(root, 'dist'),
-        filename: 'bundle.server.js'
+        filename: 'bundle.client.js'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
@@ -27,9 +25,7 @@ module.exports = {
             }
         ]
     },
-    target: 'node', // 告诉是在node下处理的
     plugins: [new vueLoaderPlugin()] // 要用一下这个插件，装了vue-loader就能找到
     // 注意还要再装一个这个 cnpm install vue-template-compiler --save
     // 尝试打包webpack --config ./webpack/webpack.server.js
 }
-
