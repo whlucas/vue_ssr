@@ -9,7 +9,7 @@ const renderer = serverRenderer.createRenderer({
 })
 
 // 当我们请求这个的时候，抓到请求返回js文件
-server.get('./dist/bundle.client.js', (req, res) => {  
+server.get('/dist/bundle.client.js', (req, res) => {  
     res.sendFile(__dirname + '/dist/bundle.client.js')
 })
 
