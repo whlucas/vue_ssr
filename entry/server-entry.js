@@ -6,13 +6,13 @@ import { createApp } from '../src/app.js'
 export default function (config) {
     // 最外面加一个promise，请求完事了以后resolve，把app返回
     return new Promise((resolve, reject) => {
-        // 这里的做法是服务器端对请求进行处理每次请求创建一个新的实例，对应一个新的页面
         let app = createApp()
-        // 这里渲染指定的路由里面的东西
         app.$router.push(config.url)
 
+        // 拿到所有请求中匹配到的组件
         let components = app.$router.getMatchedComponents()
 
+        // 不知道哪些个组件需要请求数据且异步，Promise.all
         Promise.all(components.map(component => {
             if(component.serverRequest){
                 return component.serverRequest(app.$store)
@@ -23,7 +23,9 @@ export default function (config) {
             // 这个时候服务器返回给我们的数据是没有问题的，他返回给我们的我们要渲染的app实例里面的store的值是请求回来的
             // 但是浏览器这边加上去的那一层，在引入js的时候会把原先的值覆盖
             // 再把请求后store里面的值在传回去
-            config.state = app.$store.state
+            // config.state = app.$store.state
+
+            // 都请求完事了把这个app返回
             resolve(app)
         }).catch((err) => reject(err))
     })

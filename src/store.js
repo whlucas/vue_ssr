@@ -14,6 +14,7 @@ export default function () {
             }
         },
         actions: {
+            // 请求数据
             getMsg({commit}){
                 return axios.get('http://localhost:8090/api/getMsg')
                     .then(res => commit('setMsg', res.data))

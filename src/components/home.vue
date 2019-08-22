@@ -22,7 +22,7 @@ export default {
     //     this.$store.dispatch('getMsg')
     // }
 
-    // 这里交给后端去掉这个方法
+    // 这里交给后端去调这个方法
     serverRequest(store) {
         return store.dispatch('getMsg')
     }
