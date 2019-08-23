@@ -21,14 +21,8 @@ server.get('*', (req, res) => {
 
     // 这里create返回的是一个promise了，改一下
     createApp(config).then(app => {
-
-        // 在这个里面把config.state存一下
-        // let state = JSON.stringify(config.state)
-
         renderer.renderToString(app, {
             src: '<script src="/dist/bundle.client.js"></script>',
-            // 把store里面的state挂到window上
-            // init: `<script>window.__STATE__=${state}</script>`
         }, (err, html) => {
             if(err){
                 console.log(err)
